@@ -1,5 +1,5 @@
 const { Octokit } = require("octokit");
-const { token, token2 } = require("./config.json");
+const { token } = require("./config.json");
 const fs = require("fs");
 const path = require("path");
 
@@ -8,20 +8,23 @@ const mergePullRequests = require("./commands/mergePullRequests");
 const extractFilesFromPR = require("./commands/extractFilesFromPR");
 
 const octokit = new Octokit({
-  auth: token2,
+  auth: token,
 });
 
-const owner = "BasicLucifer";
-const repo = "secondrepo";
+const owner = "";
+const repo = "";
 
 fs.mkdir(path.join(`${__dirname}`, repo), (err) => {
+  if (err) {
+    console.error(err);
+  }
   console.log("Success");
 });
 
 (async () => {
-  const pullRequestNums = await viewPullRequests.execute(octokit, repo, owner);
-  console.log(pullRequestNums);
-  for (let user of pullRequestNums.users) {
+  const pullRequest = await viewPullRequests.execute(octokit, repo, owner);
+  console.log(pullRequest);
+  for (let user of pullRequest.users) {
     await extractFilesFromPR.execute(
       octokit,
       repo,

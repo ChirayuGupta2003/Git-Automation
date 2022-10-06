@@ -15,7 +15,7 @@ module.exports = {
       );
 
       // make a folder with username
-      fs.mkdir(`../${repo}/${user}`, (err) => {
+      fs.mkdir(`./${repo}/${user}`, (err) => {
         console.log(`${user} folder created succefully`);
       });
 
@@ -25,7 +25,7 @@ module.exports = {
         const contents = await axios.get(file.raw_url).then((res) => res.data);
 
         // write contents of files
-        fs.writeFile(`../${repo}/${user}/${file.filename}`, contents, (err) => {
+        fs.writeFile(`./${repo}/${user}/${file.filename}`, contents, (err) => {
           if (err) {
             console.error(err);
           }
